@@ -16,7 +16,6 @@
     position:            absolute;
     width:               60px;
     left:                calc(50% - 30px);
-    bottom:              50%;
 }
 
 .pipes-area {
@@ -34,14 +33,14 @@
     align-items:         center;
 }
 
-.pipe.border {
+.pipe .border {
     height:              30px;
     width:               130px;
     background:          linear-gradient(90deg, #639301, #A5E82E);
     border:              2px solid #000;
 }
 
-pipe.body {
+.pipe .body {
     width:               110px;
     background:          linear-gradient(90deg, #639301, #A5E82E);
     border-left:         2px solid #000;
@@ -54,4 +53,5 @@ pipe.body {
     right:               10px;
     font-family:         PressStart2P;
     font-size:           50px;
+    z-index:             10;
 }
