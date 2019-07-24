@@ -7,7 +7,7 @@ function GameWorld() {
 
     const score = new Scores();
     const bird = new Bird( height );
-    const pipes = new PipeControler( height, width, 200, 400,
+    const pipes = new PipeControler( height, width, 230, 500,
         () => score.update( ++scores ));
     
     gameArea.appendChild( score.element );
@@ -22,7 +22,7 @@ function GameWorld() {
             if( collision( bird, pipes ) ) {
                 clearInterval( timer );
             }
-        }, 20 )
+        }, 1000/30 )
     }
 }
 

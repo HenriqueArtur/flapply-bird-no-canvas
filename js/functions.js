@@ -62,7 +62,7 @@ function PipeControler( height, Xposition, spaceBetween, pipesAreaDistance, trig
         new PipesArea( height, spaceBetween, Xposition + pipesAreaDistance * 3 )
     ]
 
-    const step = 3;
+    const step = 6;
     
     // Atualiza a posicao dos canos
     this.update = () => {
@@ -84,21 +84,28 @@ function PipeControler( height, Xposition, spaceBetween, pipesAreaDistance, trig
 
 // Classe do passaro
 function Bird( gameHeight ) {
-    let flying = false;
+    let grav = 0.02;
+    let initialJumpVelocity = 0.3;
+    let jumpVelocity = 0;
+    let angle = 0;
 
+    // add sprite
     this.element = newElement( 'img', 'bird' );
     this.element.src = 'img/bird.png';
 
     this.getY = () => parseInt( this.element.style.bottom.split( 'px' )[0] );
     this.setY = y => this.element.style.bottom = `${y}px`;
+    this.changeRotate = angle => this.element.style.transform = `rotate(${angle}deg)`;
 
-    window.onkeydown = e => flying = true;
-    window.onkeyup = e => flying = false;
+    window.onkeyup = () => { jumpVelocity = initialJumpVelocity; };
 
     this.update = () => {
-        const newPositionY = this.getY() + (flying ? 8 : -5);
         const maxHeight = gameHeight - this.element.clientHeight - 10;
     
+        jumpVelocity -= grav;
+
+        const newPositionY = this.getY() + jumpVelocity * 1000/30;
+
         if( newPositionY >= maxHeight ) {
             this.setY(maxHeight);
         } else
@@ -107,6 +114,20 @@ function Bird( gameHeight ) {
         } else {
             this.setY( newPositionY );
         }
+
+        if( jumpVelocity >= 0) {
+            if( angle > -40 ){
+                angle -= 0.25 * 1000/30;
+            }
+        } else {
+            if( angle < 60 ) {
+                angle += 0.09 * 1000/30;
+            }
+        }
+    
+        this.changeRotate(angle);
+
+        console.log( angle );
     }
 
     this.setY( gameHeight/2 );
